@@ -66,15 +66,17 @@ WHERE birthday IN (
   GROUP BY birthday
   HAVING COUNT(birthday) > 1
 )
-SELECT birthday,
-       MONTH(birthday) birthmonth
-FROM employee
 
-SELECT COUNT(username) ,
-    DATENAME(WEEKDAY, GETDATE()) AS WEEKDAY
+SELECT DATEPART(MONTH, birthday) as Months, COUNT(*) as Number_of_People
 FROM employee
+GROUP BY DATEPART(MONTH, birthday)
+HAVING count(*)>1
+
+SELECT DATEPART(WEEKDAY, birthday) as Week, COUNT(*) as Number_of_People
+FROM employee
+GROUP BY DATEPART(WEEKDAY, birthday)
+HAVING count(*)>1
 
 
 --Find the current age of all people
-SELECT *, DATEDIFF(year, birthday, GETDATE()) Age
-FROM employee
+SELECT *, DATEDIFF(year, birthday, GETDATE()) Age FROM employee
